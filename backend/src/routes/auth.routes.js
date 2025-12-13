@@ -17,7 +17,8 @@ r.post('/register', async (req,res,next)=>{
   );
   const token=generateToken();
   await pool.query(
-    'INSERT INTO email_verifications(user_id,token,expires_at) VALUES($1,$2,NOW()+interval '1 day')',
+    `INSERT INTO email_verifications(user_id, token, expires_at)
+ VALUES ($1, $2, NOW() + interval '1 day')`,
     [u.rows[0].id,token]
   );
   await sendVerificationEmail(email,`${process.env.APP_URL}/api/auth/verify/${token}`);
