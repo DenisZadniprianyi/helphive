@@ -1,0 +1,13 @@
+<svg width="36" height="24" viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg">
+  <rect width="36" height="24" rx="4" fill="#00061A"/>
+  <g filter="url(#glow)">
+    <rect width="36" height="12" fill="#FFFFFF"/>
+    <rect y="12" width="36" height="12" fill="#DC143C"/>
+  </g>
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#FF6B6B"/>
+    </filter>
+  </defs>
+</svg>

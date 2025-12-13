@@ -1,0 +1,21 @@
+<svg width="36" height="24" viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg">
+  <rect width="36" height="24" rx="4" fill="#00061A"/>
+  
+  <g filter="url(#glow)">
+    <!-- Белый -->
+    <rect x="0" y="0" width="36" height="8" fill="#FFFFFF"/>
+
+    <!-- Синий -->
+    <rect x="0" y="8" width="36" height="8" fill="#0033A0"/>
+
+    <!-- Красный -->
+    <rect x="0" y="16" width="36" height="8" fill="#D52B1E"/>
+  </g>
+
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="#3A7BFF"/>
+    </filter>
+  </defs>
+</svg>
