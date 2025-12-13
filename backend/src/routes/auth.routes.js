@@ -34,10 +34,15 @@ router.post('/register', async (req, res, next) => {
       [user.id, token]
     );
 
-    await sendVerificationEmail(
-      email,
-      `${process.env.APP_URL}/api/auth/verify/${token}`
-    );
+    // 🔥 TEMP: email sending disabled from crashing backend
+    try {
+      await sendVerificationEmail(
+        email,
+        `${process.env.APP_URL}/api/auth/verify/${token}`
+      );
+    } catch (e) {
+      console.error('Email send skipped:', e.message);
+    }
 
     res.json({
       message: 'Registered successfully. Please verify your email.'
