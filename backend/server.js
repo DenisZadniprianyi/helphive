@@ -1,8 +1,10 @@
-
 import dotenv from 'dotenv';
 dotenv.config();
+
 import app from './src/app.js';
 
-app.listen(process.env.PORT || 5000, () =>
-  console.log('Helphive API running')
-);
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
