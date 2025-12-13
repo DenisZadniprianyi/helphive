@@ -1,21 +1,53 @@
-
 import express from 'express';
 import { requireAuth } from '../middlewares/auth.middleware.js';
 import { requireRole } from '../middlewares/role.middleware.js';
 import { pool } from '../db.js';
-const r=express.Router();
 
-r.post('/',requireAuth,requireRole('client'),async(req,res)=>{
-  const t=await pool.query(
-    'INSERT INTO tasks(client_id,title,description) VALUES($1,$2,$3) RETURNING *',
-    [req.user.id,req.body.title,req.body.description]
-  );
-  res.json(t.rows[0]);
-});
+const router = express.Router();
 
-r.get('/',requireAuth,requireRole('helper'),async(req,res)=>{
-  const t=await pool.query('SELECT * FROM tasks WHERE status='open'');
-  res.json(t.rows);
-});
+/**
+ * CREATE TASK (CLIENT)
+ */
+router.post(
+  '/',
+  requireAuth,
+  requireRole('client'),
+  async (req, res, next) => {
+    try {
+      const { title, description } = req.body;
 
-export default r;
+      const result = await pool.query(
+        `INSERT INTO tasks (client_id, title, description)
+         VALUES ($1, $2, $3)
+         RETURNING *`,
+        [req.user.id, title, description]
+      );
+
+      res.json(result.rows[0]);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+/**
+ * GET OPEN TASKS (HELPER)
+ */
+router.get(
+  '/',
+  requireAuth,
+  requireRole('helper'),
+  async (req, res, next) => {
+    try {
+      const result = await pool.query(
+        `SELECT * FROM tasks WHERE status = 'open'`
+      );
+
+      res.json(result.rows);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+export default router;
